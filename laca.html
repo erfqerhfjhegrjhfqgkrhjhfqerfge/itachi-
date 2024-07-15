@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Information</title>
+</head>
+<body>
+  <h1>Share Your Information</h1>
+  <p>
+    By clicking the button below, you agree to share the following information with us:
+    <ul>
+      <li>IP Address</li>
+      <li>Location (latitude and longitude)</li>
+      <li>Browser and Operating System</li>
+      <li>Device Type</li>
+      <li>Screen Resolution</li>
+    </ul>
+  </p>
+  <button onclick="getUserInfo()">Share My Information</button>
+  <div id="user-info" style="display: none;">
+    <h2>Your Information</h2>
+    <p>IP Address: <span id="ip_address"></span></p>
+    <p>Latitude: <span id="latitude"></span></p>
+    <p>Longitude: <span id="longitude"></span></p>
+    <p>Browser: <span id="browser"></span></p>
+    <p>Operating System: <span id="os"></span></p>
+    <p>Device Type: <span id="device_type"></span></p>
+    <p>Screen Resolution: <span id="screen_resolution"></span></p>
+  </div>
+  <script>
+    function getUserInfo() {
+      fetch('get_user_info.php')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('ip_address').textContent = data.ip_address;
+          document.getElementById('latitude').textContent = data.latitude;
+          document.getElementById('longitude').textContent = data.longitude;
+          document.getElementById('browser').textContent = data.browser;
+          document.getElementById('os').textContent = data.os;
+          document.getElementById('device_type').textContent = data.device_type;
+          document.getElementById('screen_resolution').textContent = data.screen_resolution;
+          document.getElementById('user-info').style.display = 'block';
+        })
+        .catch(error => console.error('Error:', error));
+    }
+  </script>
+</body>
+</html>
